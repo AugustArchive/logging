@@ -11,6 +11,7 @@
   ],
   "repository": "https://github.com/auguwu/logging",
   "scripts": {
+    "prepare": "yarn build",
     "build": "yarn lint && yarn clean && yarn tsc",
     "clean": "rm -fr build",
     "lint": "eslint src --ext .ts --fix"
