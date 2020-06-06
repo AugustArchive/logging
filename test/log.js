@@ -1,7 +1,7 @@
 const { Logger, ConsoleTransport, FileTransport } = require('../build');
 
 const logger = new Logger('Test', {
-  transports: [new ConsoleTransport(), new FileTransport('./test.log')],
+  transports: [new ConsoleTransport(), new FileTransport('./logs/test.log')],
   //format: '[{level}] <=> {message}'
 });
 
