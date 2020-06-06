@@ -1,8 +1,47 @@
+import { createWriteStream, mkdirSync } from 'fs';
 import type { Writable } from 'stream';
-import { createWriteStream } from 'fs';
 import BaseTransport from './BaseTransport';
 
 const strip = (message: string) => message.replace(/\u001b\[.*?m/g, '');
+
+// Credit: https://github.com/PassTheWessel/pikmin/blob/master/lib/pikmin/transports/File.js
+function build(file: string) {
+  if (/\/\//.test(file)) {
+    let previous = './';
+    const chunks = file.split('//').slice(0, -1);
+
+    for (const chunk of chunks) {
+      try {
+        mkdirSync(`${previous}/${chunk}`);
+      } catch {
+        // ignore
+      }
+
+      previous = `${previous}/${chunk}`;
+    }
+  }
+
+  if (/\//.test(file)) {
+    let previous = './';
+    const chunks = file.split('/').slice(0, -1);
+
+    for (const chunk of chunks) {
+      try {
+        mkdirSync(`${previous}/${chunk}`);
+      } catch {
+        // ignore
+      }
+
+      previous = `${previous}/${chunk}`;
+    }
+  }
+
+  try {
+    return createWriteStream(file);
+  } catch {
+    return null;
+  }
+}
 
 export default class FileTransport extends BaseTransport {
   /** The file itself */
@@ -15,9 +54,11 @@ export default class FileTransport extends BaseTransport {
   constructor(path: string) {
     super();
 
+    const stream = build(path);
+    if (stream === null) throw new Error('Unable to read file');
+
     // Creates an empty file
-    this.file = createWriteStream(path);
-    this.addEvents();
+    this.file = stream;
   }
 
   get name() {
@@ -26,11 +67,5 @@ export default class FileTransport extends BaseTransport {
 
   print(message: string) {
     this.file.write(`${strip(message)}\n`);
-  }
-
-  private addEvents() {
-    process.on('exit', () => {
-      this.file.end();
-    });
   }
 }

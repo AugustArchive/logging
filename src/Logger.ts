@@ -90,7 +90,9 @@ export default class Logger {
 
   private _formatMessage(...messages: any[]) {
     return messages
-      .map((message) => message instanceof Object ? inspect(message) : Array.isArray(message) ? `[${message.join(', ')}]` : message)
+      .map((message) => 
+        message instanceof Object ? inspect(message) : Array.isArray(message) ? `[${message.join(', ')}]` : message
+      )
       .join('\n');
   }
 
@@ -123,9 +125,7 @@ export default class Logger {
       return this.formatter(level, this._formatMessage(...messages));
     }
   }
-  // #endregion
 
-  // #region Public
   info(...messages: any[]) {
     return this._write(LogLevel.Info, ...messages);
   }
@@ -158,5 +158,4 @@ export default class Logger {
       return this.format(l, message);
     };
   }
-  //#endregion
 }
