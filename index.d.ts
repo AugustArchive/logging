@@ -31,9 +31,21 @@ declare module '@augu/logging' {
       format?: Formatter;
     }
 
+    class TransportCollection extends Collection<BaseTransport> {
+      /**
+       * Gets the console transport
+       */
+      get(key: 'console'): Logging.ConsoleTransport;
+
+      /**
+       * Gets the file transport
+       */
+      get(key: 'file'): Logging.FileTransport;
+    }
+
     export class Logger {
       /** The list of the injected transports */
-      public transports: Collection<BaseTransport>;
+      public transports: TransportCollection;
 
       /** The logger's namespace */
       public namespace: string;
@@ -47,11 +59,44 @@ declare module '@augu/logging' {
        * @param options Any options
        */
       constructor(namespace: string, options: LogOptions);
+
+      /**
+       * Prints as `INFO`
+       * @param messages The message(s) to send
+       */
       info(...messages: any[]): void;
+
+      /**
+       * Prints as `WARN`
+       * @param messages The message(s) to send
+       */
       warn(...messages: any[]): void;
+
+      /**
+       * Prints as `DEBUG`
+       * @param messages The message(s) to send
+       */
       debug(...messages: any[]): void;
+
+      /**
+       * Prints as `ERROR`
+       * @param messages The message(s) to send
+       */
       error(...messages: any[]): void;
+
+      /**
+       * Prints as `FATAL`
+       * @param messages The message(s) to send
+       */
       fatal(...messages: any[]): void;
+
+      /**
+       * Bind `@augu/orchid`'s Logger middleware to this instance
+       * 
+       * @example
+       * const http = new orchid.HttpClient();
+       * http.use(orchid.middleware.logging({ binding: logger.orchid() }))
+       */
       orchid(): OrchidBinding;
     }
 
