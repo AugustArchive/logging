@@ -1,7 +1,7 @@
 {
   "name": "@augu/logging",
   "description": "👾 Simple and very customizable Logger for my tailored needs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "build/index.js",
   "license": "MIT",
   "author": "August (Chris) <august@augu.dev>",

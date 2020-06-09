@@ -1,6 +1,7 @@
 import { Collection } from '@augu/immutable';
 import BaseTransport from './transports/BaseTransport';
 import { inspect } from 'util';
+import firstUpper from './util/firstUpper';
 import leeks from 'leeks.js';
 
 /** Used for `Logger#orchid` */
@@ -72,7 +73,7 @@ export default class Logger {
         }
       };
 
-      return `${leeks.colors.gray(date)} ${color(`[${level.toUpperCase()}${spacing(level.length)}| ${this.namespace}]`)} <=> ${message}`;
+      return `${leeks.colors.gray(date)} ${color(`[${firstUpper(level)}${spacing(level.length)}| ${this.namespace}]`)} <=> ${message}`;
     };
   }
 
