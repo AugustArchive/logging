@@ -5,7 +5,7 @@ import leeks from 'leeks.js';
 
 /** Used for `Logger#orchid` */
 type OrchidBinding = (level: 'error' | 'warn' | 'info', message: string) => string;
-type Formatter = string | ((level: LogLevel, message: string) => string);
+export type Formatter = string | ((level: LogLevel, message: string) => string);
 
 interface LogOptions {
   /** Any transports to add */
@@ -146,7 +146,7 @@ export default class Logger {
     return this._write(LogLevel.Fatal, ...messages);
   }
 
-  orchid(): OrchidBinding {
+  get orchid(): OrchidBinding {
     try {
       require('@augu/orchid');
     } catch {

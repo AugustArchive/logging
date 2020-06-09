@@ -11,6 +11,13 @@ declare module '@augu/logging' {
     /** Returns the version of the library */
     export const version: string;
 
+    /**
+     * Simple way of creating a Logger instance
+     * @param ns The namespace of the logger
+     * @param options Any additional options (use this if you want the file transport to be added)
+     */
+    export function createLogger(ns: string, options?: CreateLoggerOptions): Logging.Logger;
+
     /** The log levels used */
     enum LogLevel {
       Error = 'error',
@@ -22,6 +29,11 @@ declare module '@augu/logging' {
 
     type OrchidBinding = (level: 'error' | 'warn' | 'info', message: string) => string;
     type Formatter = string | ((level: LogLevel, message: string) => string);
+
+    interface CreateLoggerOptions {
+      format?: Formatter;
+      file?: string;
+    }
 
     interface LogOptions {
       /** Any transports to add */
@@ -95,12 +107,12 @@ declare module '@augu/logging' {
        * 
        * @example
        * const http = new orchid.HttpClient();
-       * http.use(orchid.middleware.logging({ binding: logger.orchid() }))
+       * http.use(orchid.middleware.logging({ binding: logger.orchid }))
        */
-      orchid(): OrchidBinding;
+      get orchid(): OrchidBinding;
     }
 
-    abstract class BaseTransport {
+    export abstract class BaseTransport {
       /** The logger itself */
       public core: Logger;
     

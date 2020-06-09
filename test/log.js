@@ -1,11 +1,9 @@
-const { Logger, ConsoleTransport, FileTransport } = require('../build');
+const { createLogger } = require('../build');
 
-const logger = new Logger('Test', {
-  transports: [new ConsoleTransport(), new FileTransport('./logs/test.log')],
-  //format: '[{level}] <=> {message}'
+const logger = createLogger('Suite #1', {
+  //format: '{level} | {message}',
+  file: './logs/suite.log'
 });
-
-//logger.orchid();
 
 logger.info('Test');
 logger.debug('Test');
