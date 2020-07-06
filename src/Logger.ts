@@ -25,21 +25,6 @@ function convertOrchidLevel(level: 'error' | 'warn' | 'info'): LogLevel {
   }
 }
 
-const MONTHS = {
-  0: 'Jan',
-  1: 'Feb',
-  2: 'Mar',
-  3: 'Apr',
-  4: 'May',
-  5: 'Jun',
-  6: 'Jul',
-  7: 'Aug',
-  8: 'Sept',
-  9: 'Oct',
-  10: 'Nov',
-  11: 'Dec'
-};
-
 export enum LogLevel {
   Error = 'error',
   Debug = 'debug',
@@ -101,7 +86,7 @@ export default class Logger {
     const seconds = escape(now.getSeconds());
     const isAM = now.getHours() >= 12 ? 'PM' : 'AM';
 
-    return `[${now.getDate()}/${MONTHS[now.getMonth()]}/${now.getFullYear()} | ${hours}:${minutes}:${seconds} ${isAM}]`;
+    return `[${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()} | ${hours}:${minutes}:${seconds} ${isAM}]`;
   }
 
   private _formatMessage(...messages: any[]) {
