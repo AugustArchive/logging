@@ -14,3 +14,6 @@ const logger = new Logger('Namespace', {
 
 logger.info('Test');
 ```
+
+## License
+**@augu/logging** is released under the MIT License. Read [here](/LICENSE) for more information.

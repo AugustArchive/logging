@@ -25,6 +25,21 @@ function convertOrchidLevel(level: 'error' | 'warn' | 'info'): LogLevel {
   }
 }
 
+const MONTHS = {
+  0: 'Jan',
+  1: 'Feb',
+  2: 'Mar',
+  3: 'Apr',
+  4: 'May',
+  5: 'Jun',
+  6: 'Jul',
+  7: 'Aug',
+  8: 'Sept',
+  9: 'Oct',
+  10: 'Nov',
+  11: 'Dec'
+};
+
 export enum LogLevel {
   Error = 'error',
   Debug = 'debug',
@@ -86,13 +101,17 @@ export default class Logger {
     const seconds = escape(now.getSeconds());
     const isAM = now.getHours() >= 12 ? 'PM' : 'AM';
 
-    return `[${hours}:${minutes}:${seconds} ${isAM}]`;
+    return `[${now.getDate()}/${MONTHS[now.getMonth()]}/${now.getFullYear()} | ${hours}:${minutes}:${seconds} ${isAM}]`;
   }
 
   private _formatMessage(...messages: any[]) {
     return messages
       .map((message) => 
-        message instanceof Object ? inspect(message) : Array.isArray(message) ? `[${message.join(', ')}]` : message
+        message instanceof Object
+          ? inspect(message)
+          : Array.isArray(message)
+            ? `[${message.join(', ')} (${message.length} items)]`
+            : message
       )
       .join('\n');
   }
@@ -112,16 +131,17 @@ export default class Logger {
   }
 
   private _write(level: LogLevel, ...messages: any[]) {
-    for (const transport of this.transports.values()) transport.print(this.format(level, ...messages));
+    for (const transport of this.transports.values()) transport.print(this.format(level, this.namespace, ...messages));
   }
  
-  private format(level: LogLevel, ...messages: any[]) {
+  private format(level: LogLevel, ns?: string, ...messages: any[]) {
     if (typeof this.formatter === 'string') {
       return this
         .formatter
         .replace(/{level}/g, level)
         .replace(/{message}/g, this._formatMessage(...messages))
-        .replace(/{date}/g, this._getDate());
+        .replace(/{date}/g, this._getDate())
+        .replace(/{ns}/g, ns || this.namespace); // ns is for Orchid v1.2 or higher
     } else {
       return this.formatter(level, this._formatMessage(...messages));
     }
@@ -154,9 +174,15 @@ export default class Logger {
       throw new Error('Unable to find @augu/orchid, did you install it?');
     }
 
-    return (level, message) => {
-      const l = convertOrchidLevel(level);
-      return this.format(l, message);
-    };
+    const orchid = require('@augu/orchid');
+    if (Number(orchid.version.split('.')[1]) < 2) {
+      return ((level: 'info' | 'error' | 'warn', message: string) => {
+        return this.format(convertOrchidLevel(level), this.namespace, message);
+      }) as any;
+    } else {
+      return ((ns: string, level: 'info' | 'error' | 'warn', message: string) => {
+        return this.format(convertOrchidLevel(level), ns, message);
+      }) as any;
+    }
   }
 }
