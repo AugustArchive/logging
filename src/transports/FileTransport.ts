@@ -5,7 +5,7 @@ import BaseTransport from './BaseTransport';
 const strip = (message: string) => message.replace(/\u001b\[.*?m/g, '');
 
 // Credit: https://github.com/PassTheWessel/pikmin/blob/master/lib/pikmin/transports/File.js
-function build(file: string) {
+function getWriteStream(file: string) {
   if (/\/\//.test(file)) {
     let previous = './';
     const chunks = file.split('//').slice(0, -1);
@@ -54,8 +54,8 @@ export default class FileTransport extends BaseTransport {
   constructor(path: string) {
     super();
 
-    const stream = build(path);
-    if (stream === null) throw new Error('Unable to read file');
+    const stream = getWriteStream(path);
+    if (stream === null) throw new Error('Unable to make a writable stream');
 
     // Creates an empty file
     this.file = stream;
