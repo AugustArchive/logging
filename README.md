@@ -3,6 +3,9 @@
 
 ![Example](https://cdn.augu.dev/logger.png)
 
+## Notice
+This package is deprecated and stored for historical purporses, please use [signale](https://npmjs.com/package/signale)!
+
 ## Usage
 ```ts
 import { Logger, ConsoleTransport } from '@augu/logging';
