@@ -12,11 +12,12 @@
   "repository": "https://github.com/auguwu/logging",
   "scripts": {
     "prepare": "yarn lint",
-    "lint": "eslint src --ext .ts --fix"
+    "lint": "eslint src --ext .js --fix"
   },
   "dependencies": {
     "@augu/immutable": "0.5.0",
-    "leeks.js": "0.0.9"
+    "leeks.js": "0.0.9",
+    "node-emoji": "1.10.0"
   },
   "devDependencies": {
     "@augu/eslint-config": "1.8.3",

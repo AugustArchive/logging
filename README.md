@@ -1,21 +1,23 @@
 # @augu/logging
 > :space_invader: **| Make logging pretty :sparkles:**
 
-![Example](https://cdn.augu.dev/logger.png)
-
-## Notice
-This package is deprecated and stored for historical purporses, please use [signale](https://npmjs.com/package/signale)!
+![Example](https://cdn.floofy.dev/logger.png)
 
 ## Usage
-```ts
-import { Logger, ConsoleTransport } from '@augu/logging';
-
-const logger = new Logger('Namespace', {
-  transports: [new ConsoleTransport()],
-  format: '[{date}] {level} <=> {message}'
+```js
+const { createLogger, FileTransport } = require('@augu/logging');
+const logger = createLogger({
+  namespace: 'Namespace',
+  transports: [FileTransport], // constructor that can be used with `new` or a new instance
+  levels: [
+    {
+      level: 'debug',
+      color: '' // hex, hsl, rgb, number
+    }
+  ]
 });
 
-logger.info('Test');
+logger.info('Test!');
 ```
 
 ## License
