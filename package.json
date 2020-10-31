@@ -2,11 +2,12 @@
   "name": "@augu/logging",
   "description": "👾 Simple and very customizable Logger for my tailored needs",
   "version": "2.0.0",
-  "main": "build/index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "author": "Chris \"August\" Hernandez <august@augu.dev>",
+  "types": "index.d.ts",
   "files": [
-    "build/",
+    "src",
     "index.d.ts"
   ],
   "repository": "https://github.com/auguwu/logging",
