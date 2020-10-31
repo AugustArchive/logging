@@ -16,11 +16,11 @@ export function createLogger(ns: string, options?: LogOptions) {
   const transports: BaseTransport[] = [new ConsoleTransport()];
   const useFile = getOption<string | null>('file', null, options);
 
-  if (useFile != null) transports.push(new FileTransport(useFile));
+  if (useFile != null) transports.push(new FileTransport(useFile)); // eslint-disable-line
   const opts = { transports };
 
   const formatter = getOption<Formatter | undefined>('format', undefined, options);
-  if (formatter != undefined) opts['format'] = formatter;
+  if (formatter != undefined) opts['format'] = formatter; // eslint-disable-line
 
   return new Logger(ns, opts);
 }

@@ -91,7 +91,7 @@ export default class Logger {
 
   private _formatMessage(...messages: any[]) {
     return messages
-      .map((message) => 
+      .map((message) =>
         message instanceof Object
           ? inspect(message)
           : Array.isArray(message)
@@ -118,7 +118,7 @@ export default class Logger {
   private _write(level: LogLevel, ...messages: any[]) {
     for (const transport of this.transports.values()) transport.print(this.format(level, this.namespace, ...messages));
   }
- 
+
   private format(level: LogLevel, ns?: string, ...messages: any[]) {
     if (typeof this.formatter === 'string') {
       return this
