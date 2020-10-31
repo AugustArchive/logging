@@ -1,19 +1,17 @@
 {
   "name": "@augu/logging",
   "description": "👾 Simple and very customizable Logger for my tailored needs",
-  "version": "1.0.4",
+  "version": "2.0.0",
   "main": "build/index.js",
   "license": "MIT",
-  "author": "August (Chris) <august@augu.dev>",
+  "author": "Chris \"August\" Hernandez <august@augu.dev>",
   "files": [
     "build/",
     "index.d.ts"
   ],
   "repository": "https://github.com/auguwu/logging",
   "scripts": {
-    "prepare": "yarn build",
-    "build": "yarn lint && yarn clean && yarn tsc",
-    "clean": "rm -fr build",
+    "prepare": "yarn lint",
     "lint": "eslint src --ext .ts --fix"
   },
   "dependencies": {
