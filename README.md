@@ -1,7 +1,7 @@
 # @augu/logging
 > :space_invader: **| Make logging pretty :sparkles:**
 
-![Example](https://cdn.floofy.dev/logger.png)
+![](https://cdn.floofy.dev/logger.png)
 
 ## Usage
 ```js
