@@ -35,7 +35,7 @@ declare module '@augu/logging' {
     type DefaultTypes = 'info' | 'error' | 'warn' | 'debug';
     type LogMessage = string | any[] | object | Error | Date;
     type LogFunc = (...messages: LogMessage[]) => void;
-    type ILogger<L extends string> = InheritLogger & Record<L, LogFunc> & Record<logging.DefaultTypes, LogFunc>;
+    type ILogger<L extends string = DefaultTypes> = InheritLogger & Record<L, LogFunc> & Record<logging.DefaultTypes, LogFunc>;
 
     export const Logger: new (options?: logging.Options) => logging.ILogger<DefaultTypes>;
   }
