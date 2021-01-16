@@ -1,7 +1,7 @@
 # @augu/logging
 ![Workflow Status](https://github.com/auguwu/logging/workflows/ESLint/badge.svg)
 
-> :space_invader: **| Make logging pretty :sparkles:**
+> :space_invader: **Make logging pretty and robust :sparkles:**
 
 ![](https://cdn.floofy.dev/logger.png)
 
